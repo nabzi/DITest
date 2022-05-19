@@ -1,17 +1,12 @@
 package com.example.manualditest.domain
 
-import com.example.manualditest.data.LoginService
-import com.example.manualditest.data.UserLocalDataSource
-import com.example.manualditest.data.UserRemoteDataSource
-import com.example.manualditest.data.UserRepository
+import com.example.manualditest.data.*
 import com.example.manualditest.ui.LoginViewModel
 import retrofit2.Retrofit
 
-class LoginContainer(userRepository: UserRepository){
-    val loginViewModelFactory = LoginViewModelFactory(userRepository)
-}
-
-
+/*
+* sample of dependency injection with service locator
+* */
 class Container {
     val retrofit = Retrofit.Builder()
         .baseUrl("https://example.com")
@@ -24,16 +19,7 @@ class Container {
 
     val userRepository = UserRepository(userLocalDataSource, userRemoteDataSource)
 
-    var loginContainer: LoginContainer? = null
-}
+    val loginViewModel = LoginViewModel(userRepository)
 
 
-interface Factory<T> {
-    fun create(): T
-}
-
-class LoginViewModelFactory(private val userRepository: UserRepository) : Factory<LoginViewModel> {
-    override fun create(): LoginViewModel {
-        return LoginViewModel(userRepository)
-    }
 }
