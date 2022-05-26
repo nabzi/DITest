@@ -19,7 +19,6 @@ class Container {
 
     val userRepository = UserRepository(userLocalDataSource, userRemoteDataSource)
 
-    val loginViewModel = LoginViewModel(userRepository)
-
+    //val loginViewModel = LoginViewModel(userRepository)
 
 }
